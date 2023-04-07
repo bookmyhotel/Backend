@@ -1,0 +1,78 @@
+.roomsImage  *{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.roomsImage {
+    font-family: sans-serif;
+    width: 80%;
+    margin: auto;
+  }
+  .imageItem{
+    display: flex;
+    margin: 10px 0;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .uploadImageWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .uploadImageWrapper > div{
+    width: 46%;
+    height: 300px;
+    margin: 10px;
+  }
+  .uploadImageWrapper > div > img{
+    width: 100%;
+    height: 80%;
+  }
+  .uploadImageWrapper > :last-child{
+    width: 100%;
+    height: auto;
+  }
+  .HotelImage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+ .imageItemBtnWrapper{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+ }
+ .imageItemBtnWrapper  button {
+    width:48%;
+    text-align: center;
+    color: white;
+    height: 42px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #006FBF;
+    background-color: #006FBF;
+    margin-top: 20px;
+  }
+  .uploadButtons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .uploadButtons > button{
+    width:40%;
+    text-align: center;
+    color: white;
+    height: 42px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #006FBF;
+    background-color: #006FBF;
+    margin-top: 20px;
+  }
