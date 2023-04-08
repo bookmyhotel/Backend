@@ -16,7 +16,7 @@ const validateCreate = async (body, accessToken) => {
   if (discount && (discount > 100 || discount < 0)) {
     error(422, "Invalid discount amount");
   }
-  if (!name || !city || !rooms || !price || !url)
+  if (!name || !city || !rooms || !price)
     error(422, "One or more mandatory keys are missing");
 };
 
