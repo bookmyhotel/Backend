@@ -139,10 +139,9 @@ router.post("/", async (req, res, next) => {
 
       savedFacilities.forEach((facility) => {
         const entry = { ...facility.dataValues };
-        entry.status = facilities.includes();
+        entry.status = facilities.includes(facility.facility);
         newFacilities.push(entry);
       });
-
       await Promise.all(
         newFacilities.map((facility) => {
           return db.facility.update(facility, { where: { id: facility.id } });
@@ -172,7 +171,7 @@ router.post("/", async (req, res, next) => {
         const entry = {};
         entry.facility = facility;
         entry.hotelId = savedHotel.id;
-        entry.status = facilities.includes(facility);
+        entry.status = facilities.includes(facility.facility);
         facilitesEntry.push(entry);
       });
 

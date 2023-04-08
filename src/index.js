@@ -36,7 +36,7 @@ app.use("/app", router);
 app.use(undefinedUrlHandler);
 app.use(errorHandler);
 
-const port = process.env.PORT || "2345";
+const port = process.env.PORT || "3002";
 
 const start = () => {
   app.listen(port, () => {
