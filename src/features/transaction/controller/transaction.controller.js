@@ -113,6 +113,7 @@ router.post("/reports", async (req, res, next) => {
         const hotel = idToHotelMap[room.hotelId];
         entry.startDate = transactionObject.startDate;
         entry.endDate = transactionObject.endDate;
+        entry.createdAt = transactionObject.createdAt;
         const hotelDetails = {
           name: hotel.name,
           city: hotel.city,
