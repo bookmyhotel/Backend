@@ -55,24 +55,26 @@ router.get("/:userId", async (req, res, next) => {
       });
 
       transactionList.forEach((transaction) => {
-        const entry = {};
         const transactionObject = transaction.dataValues;
         const roomId = transactionObject.roomId;
         const room = idToRoomMap[roomId];
         const hotel = idToHotelMap[room.hotelId];
-        entry.startDate = transactionObject.startDate;
-        entry.endDate = transactionObject.endDate;
-        const hotelDetails = {
-          name: hotel.name,
-          city: hotel.city,
-          url: hotel.url,
-          id: hotel.id,
-        };
-        const roomDetails = { beds: room.beds, id: room.id, price: room.price };
-        entry.hotelDetails = hotelDetails;
-        entry.roomDetails = roomDetails;
-        entry.id = transaction.id;
-        result.push(entry);
+        if (hotel) {
+          const entry = {};
+          entry.startDate = transactionObject.startDate;
+          entry.endDate = transactionObject.endDate;
+          const hotelDetails = {
+            name: hotel.name,
+            city: hotel.city,
+            url: hotel.url,
+            id: hotel.id,
+          };
+          const roomDetails = { beds: room.beds, id: room.id, price: room.price };
+          entry.hotelDetails = hotelDetails;
+          entry.roomDetails = roomDetails;
+          entry.id = transaction.id;
+          result.push(entry);
+        }
       });
     }
     res.status(200).send({ result: result, total_count: result.length });
@@ -87,7 +89,7 @@ router.post("/reports", async (req, res, next) => {
     const result = [];
     if (user) {
       let transactionList = await db.transaction.findAll();
-    
+
       const roomIdList = transactionList.map((transaction) => {
         return transaction.dataValues.roomId;
       });
@@ -106,25 +108,27 @@ router.post("/reports", async (req, res, next) => {
       });
 
       transactionList.forEach((transaction) => {
-        const entry = {};
         const transactionObject = transaction.dataValues;
         const roomId = transactionObject.roomId;
         const room = idToRoomMap[roomId];
         const hotel = idToHotelMap[room.hotelId];
-        entry.startDate = transactionObject.startDate;
-        entry.endDate = transactionObject.endDate;
-        entry.createdAt = transactionObject.createdAt;
-        const hotelDetails = {
-          name: hotel.name,
-          city: hotel.city,
-          url: hotel.url,
-          id: hotel.id,
-        };
-        const roomDetails = { beds: room.beds, id: room.id, price:room.price};
-        entry.hotelDetails = hotelDetails;
-        entry.roomDetails = roomDetails;
-        entry.id = transaction.id;
-        result.push(entry);
+        if (hotel) {
+          const entry = {};
+          entry.startDate = transactionObject.startDate;
+          entry.endDate = transactionObject.endDate;
+          entry.createdAt = transactionObject.createdAt;
+          const hotelDetails = {
+            name: hotel.name,
+            city: hotel.city,
+            url: hotel.url,
+            id: hotel.id,
+          };
+          const roomDetails = { beds: room.beds, id: room.id, price: room.price };
+          entry.hotelDetails = hotelDetails;
+          entry.roomDetails = roomDetails;
+          entry.id = transaction.id;
+          result.push(entry);
+        }
       });
     }
     res.status(200).send({ result: result, total_count: result.length });
