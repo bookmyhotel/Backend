@@ -1,32 +1,30 @@
 const express = require("express");
 const { validateTransactionRequest } = require("../validators/validator");
 const db = require("../../../config/sqlConfig");
-const { transaction } = require("../../../config/sqlConfig");
-const nodemailer = require('nodemailer');
 const sendMail = require("../../../utils/nodeMailer");
 
 const router = express.Router();
 
 router.post("/book", async (req, res, next) => {
   try {
-    // const { body: { userId, roomId, days } = {} } = req;
+    const { body: { userId, roomId, days } = {} } = req;
 
-    // await validateTransactionRequest(userId, roomId, days);
+    await validateTransactionRequest(userId, roomId, days);
 
-    // let transaction = { userId, roomId };
-    // const startDate = new Date();
-    // const currentDate = new Date();
-    // const endDate = currentDate.setDate(currentDate.getDate() + days);
-    // transaction = { ...transaction, startDate, endDate };
+    let transaction = { userId, roomId };
+    const startDate = new Date();
+    const currentDate = new Date();
+    const endDate = currentDate.setDate(currentDate.getDate() + days);
+    transaction = { ...transaction, startDate, endDate };
 
-    // await db.transaction.create(transaction);
+    await db.transaction.create(transaction);
 
-    // const room = await db.room.findByPk(roomId);
-    // const updateRoom = { ...room, status: "BOOKED" };
-    // await room.update(updateRoom);
-    // res.status(200).send(room);
-    sendMail("rrolls0616@gmail.com", "testing")
-    res.status(200).send("hello");
+    const room = await db.room.findByPk(roomId);
+    const updateRoom = { ...room, status: "BOOKED" };
+    await room.update(updateRoom);
+    const user = await db.user.findByPk(userId)
+    sendMail(user.email, "Your hotel has been booked!")
+    res.status(200).send(room);
   } catch (exception) {
     next(exception);
   }
