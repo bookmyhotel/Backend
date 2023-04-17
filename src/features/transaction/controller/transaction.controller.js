@@ -1,7 +1,7 @@
 const express = require("express");
 const { validateTransactionRequest } = require("../validators/validator");
 const db = require("../../../config/sqlConfig");
-const { transaction } = require("../../../config/sqlConfig");
+const sendMail = require("../../../utils/nodeMailer");
 
 const router = express.Router();
 
@@ -22,6 +22,8 @@ router.post("/book", async (req, res, next) => {
     const room = await db.room.findByPk(roomId);
     const updateRoom = { ...room, status: "BOOKED" };
     await room.update(updateRoom);
+    const user = await db.user.findByPk(userId)
+    sendMail(user.email, "Your hotel has been booked!")
     res.status(200).send(room);
   } catch (exception) {
     next(exception);
